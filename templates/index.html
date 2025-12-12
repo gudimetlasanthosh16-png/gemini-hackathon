@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.S.C.S | PROJECT KAVACH</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="background-overlay"></div>
+    <div class="scanline"></div>
+
+    <div class="container">
+        <header>
+            <div class="top-clearance">TOP SECRET // EYES ONLY</div>
+            <h1><i class="fas fa-shield-alt"></i> PROJECT KAVACH</h1>
+            <div class="tricolor-line"></div>
+            <p class="subtitle">INDIAN DEFENCE CIPHER COMMAND</p>
+            <div class="status-panel">
+                <span>SYSTEM STATUS: <span class="blink">ONLINE</span></span>
+                <span>ENCRYPTION: <span class="highlight">AES-256-GCM</span></span>
+            </div>
+        </header>
+
+        {% if error_message %}
+        <div class="alert error-alert">
+            <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="alert-content">
+                <strong>SECURITY BREACH DETECTED</strong>
+                <p>{{ error_message }}</p>
+            </div>
+        </div>
+        {% endif %}
+
+        {% if decoded_message %}
+        <div class="alert success-alert">
+            <div class="alert-header">
+                <i class="fas fa-unlock-alt"></i> DECRYPTED INTELLIGENCE
+            </div>
+            <p class="secret-message">{{ decoded_message }}</p>
+        </div>
+        {% endif %}
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert {{ category }}-alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <div class="tactical-panel">
+            <div class="panel-header">
+                <span class="crosshair">+</span>
+                <span>DATA TRANSMISSION INTERFACE</span>
+                <span class="crosshair">+</span>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="openTab('encode')">
+                    <i class="fas fa-satellite-dish"></i> UPLINK (SENDER)
+                </button>
+                <button class="tab-btn" onclick="openTab('decode')">
+                    <i class="fas fa-radar"></i> DOWNLINK (RECEIVER)
+                </button>
+            </div>
+
+            <!-- ENCODE SECTION -->
+            <div id="encode" class="tab-content active">
+                <form action="/encode" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="enc_image">1. TARGET COVER IMAGE</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="enc_image" name="image" accept="image/*" required>
+                            <div class="file-customified">
+                                <i class="fas fa-crosshairs"></i> SELECT TARGET FILE
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="plaintext">2. CLASSIFIED INTELLIGENCE</label>
+                        <textarea id="plaintext" name="plaintext" rows="4" placeholder="ENTER MISSION CRITICAL DATA..."
+                            required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enc_password">3. AUTHORIZATION CODE</label>
+                        <input type="password" id="enc_password" name="password" placeholder="SET SECURE PASSPHRASE"
+                            required>
+                    </div>
+
+                    <button type="submit" class="action-btn encode-btn">
+                        <i class="fas fa-lock"></i> INITIATE ENCRYPTION PROTOCOL
+                    </button>
+                </form>
+            </div>
+
+            <!-- DECODE SECTION -->
+            <div id="decode" class="tab-content">
+                <form action="/decode" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="dec_image">1. INTERCEPTED STEGO-FILE</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" id="dec_image" name="image" accept="image/*" required>
+                            <div class="file-customified">
+                                <i class="fas fa-folder-open"></i> LOAD INTERCEPTED PING
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dec_password">2. DECRYPTION KEY</label>
+                        <input type="password" id="dec_password" name="password" placeholder="ENTER ACCESS CODE"
+                            required>
+                    </div>
+
+                    <button type="submit" class="action-btn decode-btn">
+                        <i class="fas fa-code-branch"></i> EXECUTE DECRYPTION
+                    </button>
+                </form>
+            </div>
+
+            <div class="panel-footer">
+                JAI HIND | SATYAMEVA JAYATE
+            </div>
+        </div>
+
+        <footer>
+            <p>SECURE LINK ESTABLISHED | <i class="fas fa-shield-alt"></i> KAVACH SYS v1.0</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+
+</html>

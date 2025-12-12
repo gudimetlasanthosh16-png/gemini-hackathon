@@ -1,0 +1,442 @@
+:root {
+    --bg-color: #050505;
+    --military-green: #37412a;
+    /* Dark Olive */
+    --military-accent: #6b8c42;
+    /* Lighter Olive */
+    --tactical-black: #0f110c;
+    --radar-green: #00ff41;
+    /* CRT Green */
+    --alert-red: #ff3333;
+    --text-main: #e0e0e0;
+    --text-muted: #8a9a5b;
+    /* Artichoke green */
+    --border-color: #556b2f;
+    --glass-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+
+    --font-heading: 'Black Ops One', cursive;
+    --font-mono: 'Share Tech Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-mono);
+    background-color: var(--bg-color);
+    background-image:
+        linear-gradient(rgba(0, 20, 0, 0.8), rgba(0, 20, 0, 0.9)),
+        repeating-linear-gradient(45deg, #111 0, #111 2px, #000 2px, #000 4px);
+    color: var(--text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* CRT Scanline Effect */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 50% 50%, rgba(30, 40, 20, 0.4), rgba(0, 0, 0, 0.8));
+    z-index: -1;
+    pointer-events: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    z-index: 10;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.top-clearance {
+    color: var(--alert-red);
+    font-size: 0.9rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    border: 1px solid var(--alert-red);
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(50, 0, 0, 0.5);
+    font-family: var(--font-heading);
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--text-main);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+    margin: 10px 0;
+}
+
+.tricolor-line {
+    height: 4px;
+    width: 150px;
+    margin: 5px auto;
+    background: linear-gradient(to right, #FF9933, #FFFFFF, #138808);
+    /* Saffron, White, Green */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.subtitle {
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.status-panel {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: var(--radar-green);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 5px 0;
+    background: rgba(0, 20, 0, 0.5);
+}
+
+.blink {
+    animation: blinker 1.5s linear infinite;
+    color: var(--radar-green);
+    font-weight: bold;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.highlight {
+    color: #FF9933;
+    /* Saffron */
+}
+
+/* Tactical Panel */
+.tactical-panel {
+    background: rgba(15, 20, 15, 0.9);
+    border: 2px solid var(--border-color);
+    padding: 2px;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+.tactical-panel::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--border-color) 25%, transparent 25%, transparent 75%, var(--border-color) 75%),
+        linear-gradient(45deg, var(--border-color) 25%, transparent 25%, transparent 75%, var(--border-color) 75%);
+    background-position: 0 0, 10px 10px;
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: -1;
+}
+
+.panel-header {
+    background: var(--military-green);
+    color: var(--text-main);
+    padding: 8px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+    border-bottom: 2px solid var(--tactical-black);
+}
+
+.crosshair {
+    color: var(--radar-green);
+}
+
+.tabs {
+    display: flex;
+    background: var(--tactical-black);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.tab-btn {
+    flex: 1;
+    background: #1a2215;
+    border: none;
+    border-right: 1px solid var(--border-color);
+    padding: 15px;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+}
+
+.tab-btn:hover {
+    background: #232d1e;
+    color: var(--radar-green);
+}
+
+.tab-btn.active {
+    background: var(--military-accent);
+    color: #000;
+    font-weight: bold;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.tab-content {
+    display: none;
+    padding: 2rem;
+    background: linear-gradient(180deg, rgba(20, 30, 20, 0.9), rgba(10, 15, 10, 0.9));
+}
+
+.tab-content.active {
+    display: block;
+    animation: textScan 0.5s ease-out;
+}
+
+@keyframes textScan {
+    from {
+        clip-path: inset(0 100% 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--radar-green);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+input[type="text"],
+input[type="password"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid var(--border-color);
+    color: var(--radar-green);
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    transition: all 0.3s;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: var(--radar-green);
+    background: rgba(0, 20, 0, 0.8);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+}
+
+textarea::placeholder,
+input::placeholder {
+    color: #4a5d43;
+}
+
+/* File Upload */
+.file-upload-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.file-upload-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+}
+
+.file-customified {
+    background: repeating-linear-gradient(45deg,
+            #1a2215,
+            #1a2215 10px,
+            #141a10 10px,
+            #141a10 20px);
+    border: 2px dashed var(--border-color);
+    padding: 1rem;
+    text-align: center;
+    color: var(--text-muted);
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.file-upload-wrapper:hover .file-customified {
+    border-color: var(--radar-green);
+    color: var(--radar-green);
+    box-shadow: 0 0 10px rgba(0, 255, 65, 0.2);
+}
+
+.action-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.2s;
+    letter-spacing: 2px;
+}
+
+.encode-btn {
+    background: var(--military-accent);
+    color: #000;
+    border: 1px solid #8fad6d;
+}
+
+.encode-btn:hover {
+    background: #7ca353;
+    box-shadow: 0 0 20px rgba(107, 140, 66, 0.6);
+    transform: translateY(-2px);
+}
+
+.decode-btn {
+    background: #d4af37;
+    /* Gold/Brass */
+    color: #000;
+    border: 1px solid #f0c040;
+}
+
+.decode-btn:hover {
+    background: #e5bd47;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Alerts */
+.alert {
+    display: flex;
+    align-items: stretch;
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.error-alert {
+    border-color: var(--alert-red);
+}
+
+.error-alert .alert-icon {
+    background: var(--alert-red);
+    color: black;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 1.5rem;
+}
+
+.error-alert .alert-content {
+    padding: 15px;
+    color: var(--alert-red);
+}
+
+.success-alert {
+    border-color: var(--radar-green);
+    flex-direction: column;
+    padding: 0;
+}
+
+.alert-header {
+    background: rgba(0, 50, 0, 0.8);
+    padding: 10px 15px;
+    color: var(--radar-green);
+    font-weight: bold;
+    border-bottom: 1px solid var(--radar-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.secret-message {
+    font-family: 'Courier New', monospace;
+    padding: 20px;
+    color: #fff;
+    background: rgba(0, 20, 0, 0.5);
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-size: 1.1rem;
+}
+
+.panel-footer {
+    background: var(--tactical-black);
+    text-align: center;
+    padding: 10px;
+    color: #666;
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+    border-top: 1px solid var(--border-color);
+    text-transform: uppercase;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    color: #444;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+/* Flash Messages */
+.alert-error {
+    background: rgba(255, 0, 0, 0.1);
+    border: 1px solid red;
+    color: red;
+    padding: 10px;
+    text-align: center;
+}

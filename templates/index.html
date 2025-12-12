@@ -16,18 +16,91 @@
     <div class="scanline"></div>
 
     <div class="container">
-        <header>
+
+        <!-- Navbar / Status Bar -->
+        <div class="status-panel" style="margin-bottom: 30px;">
+            <span>SYSTEM STATUS: <span class="blink">ONLINE</span></span>
+            <span>AGENCY: <span class="highlight">INDIAN DEFENCE CIPHER COMMAND</span></span>
+            <span>PROTOCOL: <span class="highlight">AES-256-GCM</span></span>
+        </div>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
             <div class="top-clearance">TOP SECRET // EYES ONLY</div>
-            <h1><i class="fas fa-shield-alt"></i> PROJECT KAVACH</h1>
-            <div class="tricolor-line"></div>
-            <p class="subtitle">INDIAN DEFENCE CIPHER COMMAND</p>
-            <div class="status-panel">
-                <span>SYSTEM STATUS: <span class="blink">ONLINE</span></span>
-                <span>ENCRYPTION: <span class="highlight">AES-256-GCM</span></span>
+            <h1 class="hero-title"><i class="fas fa-shield-alt"></i> PROJECT KAVACH</h1>
+            <div class="tricolor-line" style="width: 200px;"></div>
+            <p class="hero-tagline">
+                Secure Steganographic Communication System (S.S.C.S) developed for the <strong>National Defense
+                    Grid</strong>.
+                Conceal intelligence within visual media using military-grade encryption and pixel-level obfuscation.
+            </p>
+            <a href="#mission-control" class="cta-btn"><i class="fas fa-terminal"></i> ACCESS TERMINAL</a>
+        </section>
+
+        <!-- Features Grid -->
+        <section class="features-grid">
+            <h2 class="section-title">Operational Capabilities</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-lock"></i></div>
+                    <h3>AES-256-GCM</h3>
+                    <p>Advanced Encryption Standard with Galois/Counter Mode ensures confidentiality and data integrity.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-image"></i></div>
+                    <h3>LSB Stealth</h3>
+                    <p>Least Significant Bit steganography renders hidden messages visually undetectable to the naked
+                        eye.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-user-shield"></i></div>
+                    <h3>Tamper Proof</h3>
+                    <p>Smart protocols detect unauthorized modifications and trigger immediate security alerts.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section class="how-it-works">
+            <h2 class="section-title">Mission Protocol</h2>
+            <div class="steps-container">
+                <div class="step-item">
+                    <span class="step-number">01</span>
+                    <div class="step-title">Encode</div>
+                    <p>Upload cover image and inject classified intel with a secure key.</p>
+                </div>
+                <div class="step-item">
+                    <span class="step-number">02</span>
+                    <div class="step-title">Transmit</div>
+                    <p>Send the innocuous "stego-image" via any public channel.</p>
+                </div>
+                <div class="step-item">
+                    <span class="step-number">03</span>
+                    <div class="step-title">Decode</div>
+                    <p>Receiver extracts payload using the matching credentials.</p>
+                </div>
+            </div>
+        </section>
+
+        <header id="mission-control">
+            <!-- This section is now just the anchor for the tool -->
+            <div class="panel-header"
+                style="justify-content: center; background: transparent; border: none; margin-bottom: 20px;">
+                <h2 style="font-family: var(--font-heading); color: var(--text-main); font-size: 2rem;">MISSION CONTROL
+                    LINK</h2>
             </div>
         </header>
 
         {% if error_message %}
+        {% if "TAMPERING DETECTED" in error_message %}
+        <div class="alert severe-alert">
+            <div class="alert-icon"><i class="fas fa-radiation-alt"></i></div>
+            <div class="alert-content">
+                <strong>{{ error_message }}</strong>
+            </div>
+        </div>
+        {% else %}
         <div class="alert error-alert">
             <div class="alert-icon"><i class="fas fa-exclamation-triangle"></i></div>
             <div class="alert-content">
@@ -35,6 +108,7 @@
                 <p>{{ error_message }}</p>
             </div>
         </div>
+        {% endif %}
         {% endif %}
 
         {% if decoded_message %}

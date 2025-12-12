@@ -252,7 +252,9 @@ def decode():
             plaintext = decrypt_payload(raw_data, password)
             return render_template('index.html', decoded_message=plaintext)
         except InvalidTag:
-             return render_template('index.html', error_message="ACCESS DENIED: Invalid Key or Tampered Message")
+             # Severe Warning for Tampering/Wrong Password
+             severe_warning = "SECURITY ALERT: TAMPERING DETECTED! YOU HAVE BEEN IDENTIFIED. THE INDIAN ARMY IS WATCHING. SERIOUS ACTION WILL BE TAKEN AGAINST YOU."
+             return render_template('index.html', error_message=severe_warning)
         except ValueError as ve:
              # LSB extraction might fail if not our image
              return render_template('index.html', error_message=f"ACCESS DENIED: {str(ve)}")
